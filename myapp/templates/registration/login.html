@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% if form.errors %}
+
+    <p class="errors">Sorry Username and Password dont match!</p>
+
+{% endif %}
+    <form  method="post">
+        {% csrf_token %}
+        <label for="username">Username: </label>
+        <input type="text" name="username" id="username" value="">
+        <label for="password">Password: </label>
+        <input type="password" id="password" name="password" value="">
+
+        <input type="submit" value="login">
+
+    </form>
+</body>
+</html>

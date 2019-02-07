@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="" method="POST">
+    {% csrf_token %}
+    <ul>
+        {{ user_form.as_p }}
+        {{ my_form.as_p }}
+    </ul>
+    <input type="submit" value="Add user" name="submit">
+</form>
+</body>
+</html>
+

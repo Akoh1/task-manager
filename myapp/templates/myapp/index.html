@@ -1,0 +1,58 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static "css/myapp.css" %}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h3>The current user logged in is {{ request.user.username }}</h3>
+    <table style="width: 60%" border="1">
+   <tr>
+       <td><a href="{% url 'myapp:add_user' %}" >+</a></td>
+       <th>User</th>
+       <td><a href="{% url 'myapp:add_task' %}" >+</a></td>
+       <th>Weekly Goals</th>
+       <th>Daily Goals</th>
+       <th>Verify</th>
+       <th>Done</th>
+   </tr>
+   {% if user %}
+ {% for show in user %}
+   <tr>
+       <td><a href="{% url 'myapp:add_user' %}" >+</a></td>
+       <td>
+           <pre>{{ show.username }}</pre>
+       </td>
+       <td>
+           <a href="{% url 'myapp:add_task' %}" >+</a>
+       </td>
+       <td id="task">
+           {% for foo in show.get_week %}
+               <a href="{% url 'myapp:move_goal' foo.id %}" ><pre>{{ foo.task }}</pre></a>
+           {% endfor %}
+      </td>
+       <td>
+           {% for foo in show.get_day %}
+            <a href="{% url 'myapp:move_goal' foo.id %}"><pre>{{ foo.task }}</pre></a>
+           {% endfor %}
+
+       </td>
+       <td>{% for foo in show.get_verify %}
+            <a href="{% url 'myapp:move_goal' foo.id %}"><pre>{{ foo.task }}</pre></a>
+           {% endfor %}
+       </td>
+       <td>{% for foo in show.get_done %}
+            <a href="{% url 'myapp:move_goal' foo.id %}"><pre>{{ foo.task }}</pre></a>
+           {% endfor %}
+       </td>
+
+   </tr>
+   {% endfor %}
+{% else %}
+       <p>No User name shown</p>
+   {% endif %}
+</table>
+</body>
+</html>

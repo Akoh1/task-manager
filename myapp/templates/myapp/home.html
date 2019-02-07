@@ -1,0 +1,76 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static "css/myapp.css" %}">
+    <script src="{% static 'js/angular.js' %}"></script>
+    <script src="{% static 'js/angular-route.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+    <script src="{% static 'js/controller.js' %}"></script>
+    <script src="{% static 'js/jquery-3.2.1.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'js/ui-bootstrap.js' %}"></script>
+    <script src="{% static 'js/angular-dragdrop.js' %}"></script>
+    <title>Title</title>
+</head>
+<body ng-app="myApp" ng-controller="myAppCtrl">
+{% verbatim %}
+<table border="1">
+    <tr>
+        <th>Username</th>
+        <th>Add task</th>
+        <th>Weekly target</th>
+        <th>Daily target</th>
+        <th>Verify</th>
+        <th>Done</th>
+
+
+    </tr>
+
+
+   <tr ng-repeat="val in user">
+
+       <td id="username">{{ val.username }}</td>
+        <td><a href="#!taskurl">+</a></td>
+        <td>
+            <pre ng-if="y.target_name == 'http://localhost:8000/api/status/1/?format=json' && y.user_name == val.url" ng-repeat="y in goal"
+            data-drag="true" jqyoui-draggable="{animate:true}" >
+                 {{ y.task }}
+            </pre>
+        </td>
+        <td>
+            <pre ng-if="d.target_name == 'http://localhost:8000/api/status/2/?format=json' && d.user_name == val.url" ng-repeat="d in goal"
+             data-drop="true" jqyoui-droppable="{multiple:true}">
+                {{ d.task }}
+            </pre>
+
+        </td>
+       <td>
+            <pre ng-if="v.target_name == 'http://localhost:8000/api/status/3/?format=json' && v.user_name == val.url" ng-repeat="v in goal"
+            >
+                {{ v.task }}
+            </pre>
+        </td>
+       <td>
+            <pre ng-if="y.target_name == 'http://localhost:8000/api/status/4/?format=json' && y.user_name == val.url" ng-repeat="y in goal">
+                {{ y.task }}
+            </pre>
+        </td>
+
+
+   </tr>
+
+    <tr>
+        <td><a href="#!userurl">Add user</a></td>
+    </tr>
+
+</table>
+
+    <div ng-view></div>
+
+
+
+</body>
+{% endverbatim %}
+</html>
