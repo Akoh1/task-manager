@@ -79,10 +79,10 @@ WSGI_APPLICATION = 'linux.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'use',
-        'USER': 'root',
-        'PASSWORD': 'saruMan',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'task_manager',
+        'USER': 'task_manager',
+        'PASSWORD': 'task_manager',
         'HOST': 'localhost',
     }
 }
