@@ -32,13 +32,13 @@ Activate virtual environment
 .. code-block:: sh
 
     source .virtualenv/bin/activate
-
-    ```
+    
 
 - Install requirements
 
     ```bash
     pip install -r requirements.txt
+    ```
 
 
 Run migrations before starting the django-server
@@ -46,6 +46,5 @@ Run migrations before starting the django-server
 .. code-block:: sh
 
     python manage.py migrate
- To view the app append '/myapp' to the end of the localserver
-	e.g 
-
+ 
+ 

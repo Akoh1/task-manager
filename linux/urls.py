@@ -26,7 +26,7 @@ router.register(r'status', GoalStatusViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-path('myapp/', include('myapp.urls')),
+path('', include('myapp.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     re_path(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
    url('api/', include(router.urls))
