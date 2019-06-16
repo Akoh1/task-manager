@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+  <div class="row">
+    <div class="col-md-8 col-sm-10 col-12">
+
+      <form method="post">
+
+        {{ form.non_field_errors }}
+
+        {{ form.source.errors }}
+        {{ form.source }}
+        {% csrf_token %}
+        <div class="form-group">
+          {{ form.first_name.label_tag }}
+           {{ form.first_name.errors }}
+          {{ form.first_name }}
+        </div>
+
+        <div class="form-group">
+          {{ form.last_name.label_tag }}
+           {{ form.last_name.errors }}
+          {{ form.last_name }}
+        </div>
+        <div class="form-group">
+          {{ form.email.label_tag }}
+           {{ form.email.errors }}
+          {{ form.email }}
+        </div>
+
+        <div class="form-group">
+          {{ form.username.label_tag }}
+           {{ form.username.errors }}
+          {{ form.username }}
+        </div>
+
+        <div class="form-group">
+          {{ form.role.label_tag }}
+           {{ form.role.errors }}
+          {{ form.role }}
+        </div>
+
+        <div class="form-group">
+          {{ form.password1.label_tag }}
+           {{ form.password1.errors }}
+          {{ form.password1 }}
+        </div>
+
+        <div class="form-group">
+          {{ form.password2.label_tag }}
+           {{ form.password2.errors }}
+          {{ form.password2 }}
+        </div>
+
+        <div class="form-group">
+          <h3>Choose your Organization from a list of registered organizations below</h3>
+          {{ form.org.label_tag }}
+           {{ form.org.errors }}
+          {{ form.org }}
+        </div>
+
+
+        <button type="submit" class="btn btn-success">Sign up</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

@@ -18,6 +18,7 @@ from django.urls import include, path, re_path
 from rest_framework import routers, serializers, viewsets
 from django.conf.urls import url
 from myapp.views import ScrummyUserViewSet, ScrummyGoalsViewSet, GoalStatusViewSet
+from myapp import views
 
 router = routers.DefaultRouter()
 router.register(r'users', ScrummyUserViewSet)
@@ -26,8 +27,10 @@ router.register(r'status', GoalStatusViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-path('', include('myapp.urls')),
+    path('', include('myapp.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/signup/user/', views.signup_profile, name='user_signup'),
+    path('accounts/signup/admin/', views.signup, name='admin_signup'),
     re_path(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-   url('api/', include(router.urls))
+    url('api/', include(router.urls))
 ]

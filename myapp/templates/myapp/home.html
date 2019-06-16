@@ -1,76 +1,89 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="{% static "css/myapp.css" %}">
-    <script src="{% static 'js/angular.js' %}"></script>
-    <script src="{% static 'js/angular-route.js' %}"></script>
-    <script src="{% static 'js/app.js' %}"></script>
-    <script src="{% static 'js/controller.js' %}"></script>
-    <script src="{% static 'js/jquery-3.2.1.js' %}"></script>
-    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
-    <script src="{% static 'js/ui-bootstrap.js' %}"></script>
-    <script src="{% static 'js/angular-dragdrop.js' %}"></script>
-    <title>Title</title>
-</head>
-<body ng-app="myApp" ng-controller="myAppCtrl">
-{% verbatim %}
-<table border="1">
-    <tr>
-        <th>Username</th>
-        <th>Add task</th>
-        <th>Weekly target</th>
-        <th>Daily target</th>
-        <th>Verify</th>
-        <th>Done</th>
 
+{% extends 'base.html' %}
 
-    </tr>
+{% block content %}
+<p>{{request.user.username}}</p>
 
+{% if request.user.is_admin %}
+<p>I am admin</p>
+{% else %}
+<p>I am User</p>
+{% endif %}
 
-   <tr ng-repeat="val in user">
+   <h3>The current user logged in is {{ request.user.username }}</h3>
+    {% if request.user.is_admin %}
+    <a type="button" class="btn btn-info" href="{% url 'myapp:add_task' %}">Create task</a>
+    <a type="button" class="btn btn-primary" href="{% url 'myapp:add_status' %}">Create a status</a>
+<p>{{request.user.admin.organization}}</p>
+    {% endif %}
 
-       <td id="username">{{ val.username }}</td>
-        <td><a href="#!taskurl">+</a></td>
-        <td>
-            <pre ng-if="y.target_name == 'http://localhost:8000/api/status/1/?format=json' && y.user_name == val.url" ng-repeat="y in goal"
-            data-drag="true" jqyoui-draggable="{animate:true}" >
-                 {{ y.task }}
-            </pre>
-        </td>
-        <td>
-            <pre ng-if="d.target_name == 'http://localhost:8000/api/status/2/?format=json' && d.user_name == val.url" ng-repeat="d in goal"
-             data-drop="true" jqyoui-droppable="{multiple:true}">
-                {{ d.task }}
-            </pre>
+    {% if request.user.is_user %}
+    <a type="button" class="btn btn-info" href="{% url 'myapp:user_add_task' %}">Create your task</a>
+<p>{{request.user.scrummyuser.org}}</p>
+    {% endif %}
+    <br><br>
+    <table class="table" border="1">
+       <tr>
 
-        </td>
-       <td>
-            <pre ng-if="v.target_name == 'http://localhost:8000/api/status/3/?format=json' && v.user_name == val.url" ng-repeat="v in goal"
-            >
-                {{ v.task }}
-            </pre>
-        </td>
-       <td>
-            <pre ng-if="y.target_name == 'http://localhost:8000/api/status/4/?format=json' && y.user_name == val.url" ng-repeat="y in goal">
-                {{ y.task }}
-            </pre>
-        </td>
+           <th>User</th>
+            <th>Position</th>
+           <th>Org</th>
+           <th>Weekly Goals</th>
+           <th>Daily Goals</th>
+           <th>Verify</th>
+           <th>Done</th>
+           <th></th>
+       </tr>
 
+        {% for name in user %}
+            {% if request.user.scrummyuser.org == name.org or request.user.admin == name.org %}
+            <tr>
+                <td>
+                    <a>{{name.user.username}}</a>
+                </td>
+                <td>
+                    {% if name.role == 'OW' %}
+                    <p>Owner</p>
+                    {% endif %}
+                    {% if name.role == 'AD' %}
+                    <p>Admin</p>
+                    {% endif %}
+                    {% if name.role == 'PR' %}
+                    <p>Project Manager</p>
+                    {% endif %}
+                    {% if name.role == 'DEV' %}
+                    <p>Developer</p>
+                    {% endif %}
+                </td>
+                <td>{{name.org}}</td>
+                <td>
+                     {% for foo in name.get_week %}
+                        <a href="{% url 'myapp:move_goal' foo.id %}"><pre>{{ foo.task }}</pre></a>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for foo in name.get_day %}
+                        <a href="{% url 'myapp:move_goal' foo.id %}"><pre>{{ foo.task }}</pre></a>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for foo in name.get_verify %}
+                        <a href="{% url 'myapp:move_goal' foo.id %}"><pre>{{ foo.task }}</pre></a>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for foo in name.get_done %}
+                        <a href="{% url 'myapp:move_goal' foo.id %}"><pre>{{ foo.task }}</pre></a>
+                    {% endfor %}
+                </td>
+                <td>
+                    <a type="button" class="btn btn-danger" href="{% url 'myapp:user_delete' name.pk %}">Delete User</a>
+                </td>
+            </tr>
 
-   </tr>
-
-    <tr>
-        <td><a href="#!userurl">Add user</a></td>
-    </tr>
-
-</table>
-
-    <div ng-view></div>
-
-
-
-</body>
-{% endverbatim %}
-</html>
+            {% else %}
+                <h2>No users registered on your workspace</h2>
+            {% endif %}
+        {% endfor %}
+    </table>
+{% endblock %}

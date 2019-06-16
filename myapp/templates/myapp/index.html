@@ -1,58 +1,25 @@
+
+{% extends 'base.html' %}
 {% load staticfiles %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" href="{% static "css/myapp.css" %}">
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <h3>The current user logged in is {{ request.user.username }}</h3>
-    <table style="width: 60%" border="1">
-   <tr>
-       <td><a href="{% url 'myapp:add_user' %}" >+</a></td>
-       <th>User</th>
-       <td><a href="{% url 'myapp:add_task' %}" >+</a></td>
-       <th>Weekly Goals</th>
-       <th>Daily Goals</th>
-       <th>Verify</th>
-       <th>Done</th>
-   </tr>
-   {% if user %}
- {% for show in user %}
-   <tr>
-       <td><a href="{% url 'myapp:add_user' %}" >+</a></td>
-       <td>
-           <pre>{{ show.username }}</pre>
-       </td>
-       <td>
-           <a href="{% url 'myapp:add_task' %}" >+</a>
-       </td>
-       <td id="task">
-           {% for foo in show.get_week %}
-               <a href="{% url 'myapp:move_goal' foo.id %}" ><pre>{{ foo.task }}</pre></a>
-           {% endfor %}
-      </td>
-       <td>
-           {% for foo in show.get_day %}
-            <a href="{% url 'myapp:move_goal' foo.id %}"><pre>{{ foo.task }}</pre></a>
-           {% endfor %}
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <h5>
+                This is  web app to manage tasks for technical teams, You can open a workspace for your organization as an admin
+                 and users can sign up to that workspace, create tasks, assign it milestones, change tasks milestones. Admins can coordinate
+                workflow as well as other functionalities for their members while users can only coordinate workflow for themselves.
+                <b>This is a personal project, so it is constantly being improved upon, link to API documentation using swagger will soon be
+                provided</b>
+                 This web app also provides RESTFUL API which would be consumed by my front-end project which would be implemented by vuejs later on.
+            </h5>
+        </div>
+        <div class="row"></div>
+       <p>Sign up for a free account</p>
+    <p>Choose your account type</p>
+   <a type="button" class="btn btn-primary" href="{% url 'admin_signup'  %}">Admin</a>
+    <a type="button" class="btn btn-secondary" href="{% url 'user_signup'  %}">User Sign up</a>
+    </div>
+</div>
 
-       </td>
-       <td>{% for foo in show.get_verify %}
-            <a href="{% url 'myapp:move_goal' foo.id %}"><pre>{{ foo.task }}</pre></a>
-           {% endfor %}
-       </td>
-       <td>{% for foo in show.get_done %}
-            <a href="{% url 'myapp:move_goal' foo.id %}"><pre>{{ foo.task }}</pre></a>
-           {% endfor %}
-       </td>
-
-   </tr>
-   {% endfor %}
-{% else %}
-       <p>No User name shown</p>
-   {% endif %}
-</table>
-</body>
-</html>
+{% endblock %}

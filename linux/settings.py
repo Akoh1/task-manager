@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -54,11 +55,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'linux.urls'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['./templates',],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -70,6 +72,8 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTH_USER_MODEL = 'myapp.Users'
 
 WSGI_APPLICATION = 'linux.wsgi.application'
 
@@ -128,9 +132,12 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
-
+STATIC_ROOT  =   os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+#
+# TEMPLATE_DIRS = (os.path.join(BASE_DIR,  'templates'),)
 
-TEMPLATE_DIRS = (os.path.join(BASE_DIR,  'templates'),)
-
-LOGIN_REDIRECT_URL = 'http://localhost:8000/myapp/'
+LOGIN_REDIRECT_URL = 'myapp:home'
+LOGOUT_REDIRECT_URL = 'myapp:index'
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
