@@ -15,6 +15,9 @@ urlpatterns = [
     # path('goals/', views.GoalView.as_view(), name='goal'),
     # path('home/', views.home, name='home'),
     #path('scrummy/', views.ScrummyUserViewSet.as_view('list'), name='scrummy'),
-
+    path('api/users/', views.UserCreateView.as_view(), name="create_users"),
+    path('api/users/<int:pk>/', views.UserDetailsView.as_view(), name="detail_users"),
+    path('api/admin/', views.AdminCreateView.as_view(), name="create_admin"),
+    path('api/admin/<int:pk>/', views.AdminDetailsView.as_view(), name="detail_admin"),
 
 ]

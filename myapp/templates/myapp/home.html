@@ -80,10 +80,9 @@
                     <a type="button" class="btn btn-danger" href="{% url 'myapp:user_delete' name.pk %}">Delete User</a>
                 </td>
             </tr>
+    {% endif %}
 
-            {% else %}
-                <h2>No users registered on your workspace</h2>
-            {% endif %}
         {% endfor %}
+
     </table>
 {% endblock %}

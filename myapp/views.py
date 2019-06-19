@@ -1,18 +1,20 @@
 from django.shortcuts import render, render_to_response, redirect
 from django.http import Http404
 # from .forms import AddTaskForm, AddUserForm, ChangeTaskForm
-
+from django.views.decorators.csrf import csrf_exempt
 #from django.views.decorators.csrf import csrf_protect
 # Create your views here.
-from django.http import HttpResponse, HttpResponseRedirect
-from .models import ScrummyUser, ScrummyGoals, GoalStatus, Users
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from .models import ScrummyUser, ScrummyGoals, GoalStatus, Users, Admin
+
 from django.template.response import TemplateResponse
 from django.contrib.auth.decorators import permission_required
 # from django.contrib.auth.models import User
 from django import template
 from django.views import generic
 from rest_framework import routers, serializers, viewsets
-from .serializer import ScrummyUserSerializer, ScrummyGoalsSerializer, GoalStatusSerializer
+from rest_framework.parsers import JSONParser
+from .serializer import ScrummyUserSerializer, ScrummyGoalsSerializer, GoalStatusSerializer, ScrummySerializer, UsersSerializers, AdminSerializer
 from django.shortcuts import redirect
 from myapp.forms import AdminSignUpForm, OrganizationForm, UserForm, ScrummyForm, AddTaskForm, AddStatusForm, ChangeTaskForm
 from django.views.generic import CreateView
@@ -20,6 +22,7 @@ from django.contrib.auth import login, authenticate
 from django.db import transaction
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
+from rest_framework import generics
 
 def index(request):
     if request.user.is_authenticated:
@@ -308,7 +311,128 @@ class GoalStatusViewSet(viewsets.ModelViewSet):
     queryset = GoalStatus.objects.all()
     serializer_class = GoalStatusSerializer
 
+class UserCreateView(generics.ListCreateAPIView):
+    """
+    This class defines the create behavior of our rest api.
+
+    get:
+    Return a list of all the existing users.
+
+    post:
+    Create a new user instance.
+    """
+    queryset = ScrummyUser.objects.all()
+    serializer_class = ScrummySerializer
+
+    def perform_create(self, serializer):
+        """Save the post data when creating a new Book."""
+        # serializer.save()
+        instance = serializer.save()
+        # instance.set_password(instance.password)
+        instance.save()
+
+class UserDetailsView(generics.RetrieveUpdateDestroyAPIView):
+    """
+    This class handles the http GET, PUT and DELETE requests.
+
+    get:
+    Return a list of all the existing users.
+
+    put:
+    Update a user instance.
+
+    delete:
+    Deletes a user instance.
+    """
+
+    queryset = ScrummyUser.objects.all()
+    serializer_class = ScrummySerializer
+
+class AdminCreateView(generics.ListCreateAPIView):
+    """
+    This class defines the create behavior of our rest api.
+
+    get:
+    Return a list of all the existing users.
+
+    post:
+    Create a new user instance.
+    """
+    queryset = Admin.objects.all()
+    serializer_class = AdminSerializer
+
+    def perform_create(self, serializer):
+        """Save the post data when creating a new Book."""
+        # serializer.save()
+        instance = serializer.save()
+        # instance.set_password(instance.password)
+        instance.save()
 
 
+class AdminDetailsView(generics.RetrieveUpdateDestroyAPIView):
+    """
+    This class handles the http GET, PUT and DELETE requests.
+
+    get:
+    Return a list of all the existing Admin.
+
+    put:
+    Update a user instance.
+
+    delete:
+    Deletes a user instance.
+    """
+
+    queryset = Admin.objects.all()
+    serializer_class = AdminSerializer
 
 
+# @csrf_exempt
+# def scrummy_list(request):
+#     """
+#     List all code snippets, or create a new snippet.
+#     """
+#     if request.method == 'GET':
+#         scrummy = ScrummyUser.objects.all()
+#         serializer = ScrummySerializer(scrummy, many=True)
+#         return JsonResponse(serializer.data, safe=False)
+#
+#     elif request.method == 'POST':
+#         data = JSONParser().parse(request)
+#         serializer = ScrummySerializer(data=data)
+#         if serializer.is_valid():
+#             # serializer.save()
+#             # instance = serializer.save()
+#
+#             instance  = serializer.create(validated_data=data)
+#             instance.set_password(instance.password)
+#             instance.save()
+#             return JsonResponse(instance.data, status=201)
+#         return JsonResponse(serializer.errors, status=400)
+#
+#
+# @csrf_exempt
+# def scrummy_detail(request, pk):
+#     """
+#     Retrieve, update or delete a code snippet.
+#     """
+#     try:
+#         snippet = ScrummyUser.objects.get(pk=pk)
+#     except ScrummyUser.DoesNotExist:
+#         return HttpResponse(status=404)
+#
+#     if request.method == 'GET':
+#         serializer = ScrummySerializer(snippet)
+#         return JsonResponse(serializer.data)
+#
+#     elif request.method == 'PUT':
+#         data = JSONParser().parse(request)
+#         serializer = ScrummySerializer(snippet, data=data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return JsonResponse(serializer.data)
+#         return JsonResponse(serializer.errors, status=400)
+#
+#     elif request.method == 'DELETE':
+#         snippet.delete()
+#         return HttpResponse(status=204)
