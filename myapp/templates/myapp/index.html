@@ -8,9 +8,10 @@
 </head>
 <body>
     <h3>The current user logged in is {{ request.user.username }}</h3>
+    <a href="{% url 'myapp:add_user' %}">Add user</a>
     <table style="width: 60%" border="1">
    <tr>
-       <td><a href="{% url 'myapp:add_user' %}" >+</a></td>
+
        <th>User</th>
        <td><a href="{% url 'myapp:add_task' %}" >+</a></td>
        <th>Weekly Goals</th>
@@ -21,7 +22,7 @@
    {% if user %}
  {% for show in user %}
    <tr>
-       <td><a href="{% url 'myapp:add_user' %}" >+</a></td>
+
        <td>
            <pre>{{ show.username }}</pre>
        </td>
