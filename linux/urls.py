@@ -17,13 +17,13 @@ from django.contrib import admin
 from django.urls import include, path, re_path
 from rest_framework import routers, serializers, viewsets
 from django.conf.urls import url
-from myapp.views import ScrummyUserViewSet, ScrummyGoalsViewSet, GoalStatusViewSet
+# from myapp.views import ScrummyUserViewSet, ScrummyGoalsViewSet, GoalStatusViewSet
 from myapp import views
 
 router = routers.DefaultRouter()
 # router.register(r'user', ScrummyUserViewSet)
-router.register(r'goals', ScrummyGoalsViewSet)
-router.register(r'status', GoalStatusViewSet)
+# router.register(r'goals', ScrummyGoalsViewSet)
+# router.register(r'status', GoalStatusViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,7 +32,7 @@ urlpatterns = [
     path('accounts/signup/user/', views.signup_profile, name='user_signup'),
     path('accounts/signup/admin/', views.signup, name='admin_signup'),
     re_path(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url('api/', include(router.urls)),
+    # url('api/', include(router.urls)),
 
     # path('api/scrummyusers/', views.scrummy_list, name="scrummy_list"),
     # path('api/scrummyusers/<int:pk>/', views.scrummy_detail, name="scrummy_detail"),

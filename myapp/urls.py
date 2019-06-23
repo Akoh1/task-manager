@@ -16,8 +16,12 @@ urlpatterns = [
     # path('home/', views.home, name='home'),
     #path('scrummy/', views.ScrummyUserViewSet.as_view('list'), name='scrummy'),
     path('api/users/', views.UserCreateView.as_view(), name="create_users"),
+    # path('api/tasks/users', views.UserTaskCreateView.as_view(), name="create_users_tasks"),
     path('api/users/<int:pk>/', views.UserDetailsView.as_view(), name="detail_users"),
     path('api/admin/', views.AdminCreateView.as_view(), name="create_admin"),
     path('api/admin/<int:pk>/', views.AdminDetailsView.as_view(), name="detail_admin"),
+    path('api/tasks/', views.ScrummyGoalsCreateView.as_view(), name="create_tasks"),
+    path('api/tasks/<int:pk>', views.ScrummyGoalsDetailsView.as_view(), name="detail_tasks"),
+    path('api/status/', views.StatusCreateView.as_view(), name="create_status"),
 
 ]

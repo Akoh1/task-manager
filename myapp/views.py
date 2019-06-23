@@ -14,7 +14,7 @@ from django import template
 from django.views import generic
 from rest_framework import routers, serializers, viewsets
 from rest_framework.parsers import JSONParser
-from .serializer import ScrummyUserSerializer, ScrummyGoalsSerializer, GoalStatusSerializer, ScrummySerializer, UsersSerializers, AdminSerializer
+from .serializer import  ScrummyGoalsSerializer, ScrummySerializer, UsersSerializers, AdminSerializer, StatusSerializer
 from django.shortcuts import redirect
 from myapp.forms import AdminSignUpForm, OrganizationForm, UserForm, ScrummyForm, AddTaskForm, AddStatusForm, ChangeTaskForm
 from django.views.generic import CreateView
@@ -289,27 +289,28 @@ def user_delete(request, pk, template_name='myapp/delete_user.html'):
     con = { 'scrummyusers':scrummyusers}
     return render(request, template_name, con)
 
-class GoalView(generic.ListView):
-    template_name = "myapp/goals.html"
-    context_object_name = 'task_list'
+# class GoalView(generic.ListView):
+#     template_name = "myapp/goals.html"
+#     context_object_name = 'task_list'
+#
+#     def get_queryset(self):
+#         return ScrummyGoals.objects.all()
+#
+#
+# class ScrummyUserViewSet(viewsets.ModelViewSet):
+#     queryset = ScrummyUser.objects.all()
+#     serializer_class = ScrummyUserSerializer
+#
+#
+# class ScrummyGoalsViewSet(viewsets.ModelViewSet):
+#     queryset = ScrummyGoals.objects.all()
+#     serializer_class = ScrummyGoalsSerializer
+#
+#
+# class GoalStatusViewSet(viewsets.ModelViewSet):
+#     queryset = GoalStatus.objects.all()
+#     serializer_class = GoalStatusSerializer
 
-    def get_queryset(self):
-        return ScrummyGoals.objects.all()
-
-
-class ScrummyUserViewSet(viewsets.ModelViewSet):
-    queryset = ScrummyUser.objects.all()
-    serializer_class = ScrummyUserSerializer
-
-
-class ScrummyGoalsViewSet(viewsets.ModelViewSet):
-    queryset = ScrummyGoals.objects.all()
-    serializer_class = ScrummyGoalsSerializer
-
-
-class GoalStatusViewSet(viewsets.ModelViewSet):
-    queryset = GoalStatus.objects.all()
-    serializer_class = GoalStatusSerializer
 
 class UserCreateView(generics.ListCreateAPIView):
     """
@@ -386,7 +387,64 @@ class AdminDetailsView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Admin.objects.all()
     serializer_class = AdminSerializer
 
+class ScrummyGoalsCreateView(generics.ListCreateAPIView):
+    """
+    This class defines the create behavior of our rest api.
 
+    get:
+    Return a list of all the existing users.
+
+    post:
+    Create a new user instance.
+    """
+    queryset = ScrummyGoals.objects.all()
+    serializer_class = ScrummyGoalsSerializer
+
+    def perform_create(self, serializer):
+        """Save the post data when creating a new Book."""
+        # serializer.save()
+        instance = serializer.save()
+        # instance.set_password(instance.password)
+        instance.save()
+
+
+class ScrummyGoalsDetailsView(generics.RetrieveUpdateDestroyAPIView):
+    """
+    This class handles the http GET, PUT and DELETE requests.
+
+    get:
+    Return a list of all the existing Admin.
+
+    put:
+    Update a user instance.
+
+    delete:
+    Deletes a user instance.
+    """
+
+    queryset = ScrummyGoals.objects.all()
+    serializer_class = ScrummyGoalsSerializer
+
+
+class StatusCreateView(generics.ListCreateAPIView):
+    """
+    This class defines the create behavior of our rest api.
+
+    get:
+    Return a list of all the existing users.
+
+    post:
+    Create a new user instance.
+    """
+    queryset = GoalStatus.objects.all()
+    serializer_class = StatusSerializer
+
+    def perform_create(self, serializer):
+        """Save the post data when creating a new Book."""
+        # serializer.save()
+        instance = serializer.save()
+        # instance.set_password(instance.password)
+        instance.save()
 # @csrf_exempt
 # def scrummy_list(request):
 #     """
