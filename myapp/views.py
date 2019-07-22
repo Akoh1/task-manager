@@ -23,6 +23,15 @@ from django.db import transaction
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.authtoken.models import Token
+from rest_framework.permissions import AllowAny
+from rest_framework.status import (
+    HTTP_400_BAD_REQUEST,
+    HTTP_404_NOT_FOUND,
+    HTTP_200_OK
+)
+from rest_framework.response import Response
 
 def index(request):
     if request.user.is_authenticated:
@@ -196,24 +205,31 @@ def move_goal(request, ta_id):
             return HttpResponse("User does not belong to any group")
     else:
         return HttpResponse("Access denied")
-#
+
+
 def add_task(request):
-    try:
-        if request.POST:
-            form = AddTaskForm(request.POST)
-            if form.is_valid():
-                form.save()
+    users = ScrummyUser.objects.all()
+    status = GoalStatus.objects.all()
+    # target = ScrummyGoals.objects.get(target_name_id=week_status.id)
 
-                return redirect('myapp:home')
 
-        else:
-            form = AddTaskForm()
+    if request.method == 'POST':
+        if request.POST.get('task') and request.POST.get('goal') and request.POST.get('user'):
+            task = ScrummyGoals()
+            task.target_name_id = int(request.POST.get('goal'))
+            task.user_name_id = request.POST.get('user')
+            task.task = request.POST.get('task')
+            task.save()
+            messages.success(request, ('Your task for this employee was successfully created!'))
+            return redirect('myapp:home')
 
-        args = {'form':form}
+    con = {
 
-        return render(request, 'myapp/add_task.html', args)
-    except ScrummyGoals.DoesNotExist:
-        raise Http404("No records exists for this id")
+        'status':status,
+        'users':users
+    }
+    return render(request, 'myapp/add_task.html', con)
+
 
 def add_status(request):
     if request.POST:
@@ -230,22 +246,6 @@ def add_status(request):
 
     return render(request, 'myapp/add_status.html', args)
 
-# def add_user(request):
-#     if request.POST:
-#        # user_form = UserForm(request.POST, instance=request.user)
-#         my_form = AddUserForm(request.POST)
-#         if  my_form.is_valid():
-#             #user_form.save()
-#             my_form.save()
-#             return redirect('myapp:index')
-#
-#     else:
-#         #user_form = UserForm()
-#         my_form = AddUserForm()
-#
-#     args = {'my_form':my_form}
-#
-#     return render(request, 'myapp/add_user.html', args)
 
 def user_add_task(request):
     week_status = GoalStatus.objects.get(target="Week")
@@ -289,27 +289,6 @@ def user_delete(request, pk, template_name='myapp/delete_user.html'):
     con = { 'scrummyusers':scrummyusers}
     return render(request, template_name, con)
 
-# class GoalView(generic.ListView):
-#     template_name = "myapp/goals.html"
-#     context_object_name = 'task_list'
-#
-#     def get_queryset(self):
-#         return ScrummyGoals.objects.all()
-#
-#
-# class ScrummyUserViewSet(viewsets.ModelViewSet):
-#     queryset = ScrummyUser.objects.all()
-#     serializer_class = ScrummyUserSerializer
-#
-#
-# class ScrummyGoalsViewSet(viewsets.ModelViewSet):
-#     queryset = ScrummyGoals.objects.all()
-#     serializer_class = ScrummyGoalsSerializer
-#
-#
-# class GoalStatusViewSet(viewsets.ModelViewSet):
-#     queryset = GoalStatus.objects.all()
-#     serializer_class = GoalStatusSerializer
 
 
 class UserCreateView(generics.ListCreateAPIView):
@@ -445,52 +424,20 @@ class StatusCreateView(generics.ListCreateAPIView):
         instance = serializer.save()
         # instance.set_password(instance.password)
         instance.save()
+
 # @csrf_exempt
-# def scrummy_list(request):
-#     """
-#     List all code snippets, or create a new snippet.
-#     """
-#     if request.method == 'GET':
-#         scrummy = ScrummyUser.objects.all()
-#         serializer = ScrummySerializer(scrummy, many=True)
-#         return JsonResponse(serializer.data, safe=False)
-#
-#     elif request.method == 'POST':
-#         data = JSONParser().parse(request)
-#         serializer = ScrummySerializer(data=data)
-#         if serializer.is_valid():
-#             # serializer.save()
-#             # instance = serializer.save()
-#
-#             instance  = serializer.create(validated_data=data)
-#             instance.set_password(instance.password)
-#             instance.save()
-#             return JsonResponse(instance.data, status=201)
-#         return JsonResponse(serializer.errors, status=400)
-#
-#
-# @csrf_exempt
-# def scrummy_detail(request, pk):
-#     """
-#     Retrieve, update or delete a code snippet.
-#     """
-#     try:
-#         snippet = ScrummyUser.objects.get(pk=pk)
-#     except ScrummyUser.DoesNotExist:
-#         return HttpResponse(status=404)
-#
-#     if request.method == 'GET':
-#         serializer = ScrummySerializer(snippet)
-#         return JsonResponse(serializer.data)
-#
-#     elif request.method == 'PUT':
-#         data = JSONParser().parse(request)
-#         serializer = ScrummySerializer(snippet, data=data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return JsonResponse(serializer.data)
-#         return JsonResponse(serializer.errors, status=400)
-#
-#     elif request.method == 'DELETE':
-#         snippet.delete()
-#         return HttpResponse(status=204)
+# @api_view(["POST"])
+# @permission_classes((AllowAny,))
+# def apilogin(request):
+#     username = request.data.get("username")
+#     password = request.data.get("password")
+#     if username is None or password is None:
+#         return Response({'error': 'Please provide both username and password'},
+#                         status=HTTP_400_BAD_REQUEST)
+#     user = authenticate(username=username, password=password)
+#     if not user:
+#         return Response({'error': 'Invalid Credentials'},
+#                         status=HTTP_404_NOT_FOUND)
+#     token, _ = Token.objects.get_or_create(user=user)
+#     return Response({'token': token.key},
+# status=HTTP_200_OK)

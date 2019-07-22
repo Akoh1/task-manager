@@ -12,14 +12,14 @@ class AdminUsersSerializers(serializers.ModelSerializer):
         fields = ('id', 'username', 'email','is_admin', 'password')
         write_only_fields = ('password',)
 
-    def create(self, validated_data):
-        password = validated_data.pop('password', None)
-        instance = self.Meta.model(**validated_data)
-        # instance.is_user = True
-        if password is not None:
-            instance.set_password(password)
-        instance.save()
-        return instance
+    # def create(self, validated_data):
+    #     password = validated_data.pop('password', None)
+    #     instance = self.Meta.model(**validated_data)
+    #     # instance.is_user = True
+    #     if password is not None:
+    #         instance.set_password(password)
+    #     instance.save()
+    #     return instance
 
 class UsersSerializers(serializers.ModelSerializer):
     # organization = serializers.CharField()
@@ -30,14 +30,14 @@ class UsersSerializers(serializers.ModelSerializer):
         fields = ('id', 'username','first_name', 'last_name', 'email', 'is_user', 'password')
         write_only_fields = ('password',)
 
-    def create(self, validated_data):
-        password = validated_data.pop('password', None)
-        instance = self.Meta.model(**validated_data)
-        # instance.is_user = True
-        if password is not None:
-            instance.set_password(password)
-        instance.save()
-        return instance
+    # def create(self, validated_data):
+    #     password = validated_data.pop('password', None)
+    #     instance = self.Meta.model(**validated_data)
+    #     # instance.is_user = True
+    #     if password is not None:
+    #         instance.set_password(password)
+    #     instance.save()
+    #     return instance
 
 
 class ScrummySerializer(serializers.ModelSerializer):

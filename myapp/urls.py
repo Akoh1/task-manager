@@ -23,5 +23,6 @@ urlpatterns = [
     path('api/tasks/', views.ScrummyGoalsCreateView.as_view(), name="create_tasks"),
     path('api/tasks/<int:pk>', views.ScrummyGoalsDetailsView.as_view(), name="detail_tasks"),
     path('api/status/', views.StatusCreateView.as_view(), name="create_status"),
+    # path('api/login/', views.apilogin)
 
 ]

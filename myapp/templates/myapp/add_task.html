@@ -1,6 +1,37 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+<form action="" method="post">
+     {% csrf_token %}
+     <div class="form-group">
+    <label for="user">Employee</label>
+         <select name="user" class="form-control">
+             {% for user in users %}
+             {% if user.org == request.user.admin %}
+             <option value='{{user.user.id}}'>{{user.user.username}}</option>
+             {% endif %}
+             {% endfor %}
+         </select>
+
+  </div
+  <div class="form-group">
+    <label for="task">Task</label>
+    <input type="text" class="form-control" id="task" name="task">
+  </div>
+    <div class="form-group">
+    <label for="task">Goal</label>
+         <select name="goal" class="form-control">
+             {% for goal in status %}
+             <option value='{{goal.id}}'>{{goal.target}}</option>
+             {% endfor %}
+         </select>
+
+  </div>
+  <button type="submit" class="btn btn-primary">Create task</button>
+</form>
+
+{% comment %}
 <form action="{% url 'myapp:add_task' %}" method="post">
     {% csrf_token %}
     <ul>
@@ -8,4 +39,5 @@
     </ul>
     <input type="submit" value="Add task" name="submit">
 </form>
+{% endcomment %}
 {% endblock %}
