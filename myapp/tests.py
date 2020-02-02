@@ -26,23 +26,23 @@ class ModelTest(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_valid_scrummy_form(self):
-        org = User.objects.create(first_name="Akoh", last_name="Samuel",
+        adm = Admin.objects.get(user_id=1)
+        org = Users.objects.create(first_name="Akoh", last_name="Samuel",
                                   username="sasori", password="myuser123",
-                                  email="akohsamuel018@gmail.com",
-                                  role="DEV", org=1)
+                                  email="akohsamuel018@gmail.com")
+        scrum = ScrummyUser.objects.create(user=org, role="DEV", org=adm.id)
         data = {'first_name': org.first_name, 'last_name':org.last_name,
-                'username': org.username, 'password1':org.password1,
-                'password2':org.password2, 'email':org.email, 'role':org.role, 'org':org.org}
-        form = ScrummySignUpForm(data=data)
+                'username': org.username, 'password':org.password,
+             	'email':org.email, 'role': scrum.role, 'org':scrum.org}
+        form = UserForm(data=data)
         self.assertTrue(form.is_valid())
 
     def test_invalid_scrummy_form(self):
-        org = User.objects.create(first_name="Akoh", last_name="Samuel",
-                                  username="sasori", password1="",
-                                  email="",
-                                  role="DEV", org=1)
+        org = Users.objects.create(first_name="Akoh", last_name="Samuel",
+                                  username="sasori", password="",
+                                  email="")
         data = {'first_name': org.first_name, 'last_name':org.last_name,
-                'username': org.username, 'password1':org.password1,
-                'password2':org.password2, 'email':org.email, 'role':org.role, 'org':org.org}
-        form = ScrummySignUpForm(data=data)
+                'username': org.username, 'password':org.password,
+                'email':org.email}
+        form = UserForm(data=data)
         self.assertTrue(form.is_valid())
