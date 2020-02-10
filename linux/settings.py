@@ -25,7 +25,7 @@ SECRET_KEY = 'z@75wz)4pao)667j#x5jq^-p9sk6+a_$%o@w%3f7=x*s9_9ts7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['django-dev.zptpbnmqv3.us-west-2.elasticbeanstalk.com']
 
 
 # Application definition
@@ -139,8 +139,9 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
-STATIC_ROOT  =   os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_ROOT  =   os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+STATIC_ROOT = 'static'
 #
 # TEMPLATE_DIRS = (os.path.join(BASE_DIR,  'templates'),)
 
