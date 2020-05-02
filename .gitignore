@@ -5,7 +5,6 @@
 __pycache__
 db.sqlite3
 media
-linux/local_settings.py
 static/rest_framework/**
 
 # Backup files # 
