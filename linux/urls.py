@@ -19,7 +19,7 @@ from rest_framework import routers, serializers, viewsets
 from django.conf.urls import url
 # from myapp.views import ScrummyUserViewSet, ScrummyGoalsViewSet, GoalStatusViewSet
 from myapp import views
-
+from django.conf import settings
 router = routers.DefaultRouter()
 # router.register(r'user', ScrummyUserViewSet)
 # router.register(r'goals', ScrummyGoalsViewSet)
@@ -36,4 +36,12 @@ urlpatterns = [
 
     # path('api/scrummyusers/', views.scrummy_list, name="scrummy_list"),
     # path('api/scrummyusers/<int:pk>/', views.scrummy_detail, name="scrummy_detail"),
+
 ]
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [path('__debug__/', include(debug_toolbar.urls))]
+    # urlpatterns += static(settings.MEDIA_URL,
+    #                       document_root=settings.MEDIA_ROOT)
+    # urlpatterns += static(settings.STATIC_URL,
+    #                       document_root=settings.STATIC_ROOT)
