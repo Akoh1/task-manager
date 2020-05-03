@@ -2,7 +2,7 @@
 *.log
 *.pot
 *.pyc
-__pycache__
+**/__pycache__
 db.sqlite3
 media
 manage.py
@@ -13,7 +13,8 @@ static/rest_framework/**
 
 # If you are using PyCharm #
 .idea/** 
-.idea/**/workspace.xml 
+.idea/**/workspace.xml
+.idea/workspace.xml
 .idea/**/tasks.xml 
 .idea/dictionaries 
 .idea/**/dataSources/ 
