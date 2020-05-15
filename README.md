@@ -10,6 +10,7 @@ A web app to manage tasks for technical teams, You can open a workspace for your
 
 
 ## Installation
+## clone from branch samuel 
 
 - Clone repository
 
