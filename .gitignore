@@ -9,12 +9,14 @@ manage.py
 linux/settings/development.py
 linux/settings/production.py
 linux/wsgi.py
+linux/__pycache__/
 static/rest_framework/**
 
 # Backup files # 
 *.bak 
 
 # If you are using PyCharm #
+.idea/
 .idea/** 
 .idea/**/workspace.xml
 .idea/**/tasks.xml 
