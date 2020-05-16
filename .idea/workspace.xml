@@ -5,8 +5,12 @@
     <list default="true" id="e10e6a90-5996-432a-8ce6-9ce00997e119" name="Default Changelist" comment="" />
 =======
     <list default="true" id="e10e6a90-5996-432a-8ce6-9ce00997e119" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/settings/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/linux/settings/base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/settings/development.py" beforeDir="false" afterPath="$PROJECT_DIR$/linux/settings/development.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/settings/production.py" beforeDir="false" afterPath="$PROJECT_DIR$/linux/settings/production.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/linux/wsgi.py" afterDir="false" />
     </list>
 >>>>>>> 51b3092c3ce486438fef97f942c2dacbe449af44
     <option name="SHOW_DIALOG" value="false" />
