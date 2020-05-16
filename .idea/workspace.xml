@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
+    <list default="true" id="e10e6a90-5996-432a-8ce6-9ce00997e119" name="Default Changelist" comment="" />
+=======
     <list default="true" id="e10e6a90-5996-432a-8ce6-9ce00997e119" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
+>>>>>>> 51b3092c3ce486438fef97f942c2dacbe449af44
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,11 +30,14 @@
   </component>
   <component name="ProjectId" id="1bg1akICZe0nRvJRTq5l17YPoke" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+<<<<<<< HEAD
+=======
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+>>>>>>> 51b3092c3ce486438fef97f942c2dacbe449af44
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -55,10 +62,13 @@
     </task>
     <servers />
   </component>
+<<<<<<< HEAD
+=======
   <component name="WindowStateProjectService">
     <state x="660" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1589637108228">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="660" y="380" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1589637108228" />
   </component>
+>>>>>>> 51b3092c3ce486438fef97f942c2dacbe449af44
 </project>

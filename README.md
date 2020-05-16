@@ -20,8 +20,8 @@ A web app to manage tasks for technical teams, You can open a workspace for your
 - You'll need to have virtual enviroment installed on your machine  
 
     ```python
-    pip3 install virtualenv
-    
+  pip3 install virtualenv
+  
     ```
 
 
