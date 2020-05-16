@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e10e6a90-5996-432a-8ce6-9ce00997e119" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linux/settings/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/linux/settings/base.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linux/settings/development.py" beforeDir="false" afterPath="$PROJECT_DIR$/linux/settings/development.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linux/settings/production.py" beforeDir="false" afterPath="$PROJECT_DIR$/linux/settings/production.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linux/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/linux/wsgi.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,9 +56,9 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="660" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1589555256570">
+    <state x="660" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1589637108228">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="660" y="380" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1589555256570" />
+    <state x="660" y="380" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1589637108228" />
   </component>
 </project>
