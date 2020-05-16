@@ -6,6 +6,9 @@ __pycache__
 db.sqlite3
 media
 manage.py
+linux/settings/development.py
+linux/settings/production.py
+linux/wsgi.py
 static/rest_framework/**
 
 # Backup files # 

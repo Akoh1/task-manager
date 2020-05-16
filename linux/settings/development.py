@@ -1,7 +1,8 @@
 from .base import *
 
+SECRET_KEY = 'yx1_1+6*unz$)#eg%9-dk5_hw2#(y%-(keu48%^acej87&si59'
 DEBUG = True
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'django-dev.zptpbnmqv3.us-west-2.elasticbeanstalk.com']
 
 INSTALLED_APPS += [
     'debug_toolbar'
@@ -28,7 +29,7 @@ DEBUG_TOOLBAR_PANELS = [
 
 
 def show_toolbar(request):
-    return True
+    return False
 
 
 DEBUG_TOOLBAR_CONFIG = {
